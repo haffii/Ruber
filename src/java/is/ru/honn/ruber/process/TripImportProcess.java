@@ -26,6 +26,7 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
     RuberService contentService;
     FeedReader reader;
     MessageSource msg;
+    Locale loc = new Locale("is");
 
 
     public void beforeProcess()
@@ -35,9 +36,11 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
         reader = (FeedReader)ctx.getBean("feedReader");
         reader.setFeedHandler(this);
         msg = (MessageSource)ctx.getBean("messageSource");
-        /*log.info(msg.getMessage("processbefore",
-                new Object[] { getProcessContext().getProcessName() } ,
-                Locale.getDefault()));*/
+
+        log.info(msg.getMessage("processbefore",
+                new Object[]{getProcessContext().getProcessName()},
+                loc));
+
     }
 
     public void processContent(Object content)
@@ -50,35 +53,35 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
     {
         log.info(msg.getMessage("processstart",
                 new Object[] { getProcessContext().getProcessName() },
-                Locale.getDefault()));
+                loc));
         try
         {
             reader.read(getProcessContext().getImportURL());
         }
         catch (FeedException e)
         {
-            /*log.info(msg.getMessage("processreaderror",
+            log.info(msg.getMessage("processreaderror",
                     new Object[] { getProcessContext().getImportFile() },
                     Locale.getDefault()));
-            log.info(e.getMessage());*/
+            log.info(e.getMessage());
         }
-        /*log.info(msg.getMessage("processstartdone",
-                new Object[] {contentService.getContents().size()},
-                Locale.getDefault()));*/
+
     }
 
     public void afterProcess()
     {
-/*
-        List<Trip> col = contentService.getHistory("7354db54-cc9b-4961-81f2-0094b8e2d215");
-        for (int i= 0; i<col.size();i++)
-        {
-            System.out.println(col.get(i));
-        }*/
+        log.info(msg.getMessage("processstartdone",
+                new Object[] {contentService.getHistory("7354db54-cc9b-4961-81f2-0094b8e2d215").size()},
+                loc));
     }
 
-    public void processContent(Content content)
+    public void processContent(Trip content)
     {
-       // contentService.addContent(content);
+        contentService.addTrip(content);
+    }
+
+    @Override
+    public void processContent(Content content) {
+
     }
 }
