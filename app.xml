@@ -7,5 +7,9 @@
 
     <bean id="feedReader" class="is.ru.honn.ruber.feeds.RssReader">
     </bean>
-
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename">
+            <value>messages</value>
+        </property>
+    </bean>
 </beans>
