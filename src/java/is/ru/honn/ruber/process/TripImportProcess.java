@@ -23,7 +23,7 @@ import is.ru.honn.ruber.service.Content;
 public class TripImportProcess extends RuAbstractProcess implements FeedHandler
 {
     Logger log = Logger.getLogger(this.getClass().getName());
-    RuberServiceStub contentService;
+    RuberService contentService;
     FeedReader reader;
     MessageSource msg;
 
