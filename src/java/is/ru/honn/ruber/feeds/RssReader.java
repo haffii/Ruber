@@ -36,10 +36,24 @@ public class RssReader extends AbstractFeedReader
           JSONObject json = (JSONObject) parser.parse(s);
           JSONArray history = (JSONArray) json.get("history");
 
-          Trip i = new Trip("7354db54-cc9b-4961-81f2-0094b8e2d215", 1, "ddsa", "dsa", 1, 1,1 );
-          //this.handler.processContent(i);
-          handler.processContent(i);
 
+          for(int i = 0; i < 5; i++)
+          {
+
+              JSONObject jsonObj = (JSONObject) history.get(i);
+              System.out.print((String)jsonObj.get("uuid"));
+              String uuid = (String)jsonObj.get("uuid");
+              int request_time = (Integer)jsonObj.get("request_time");
+              String product_id = (String)jsonObj.get("product_id");
+              String status = (String)jsonObj.get("status");
+              float distance = (Float)jsonObj.get("distance");
+              int start_time = (Integer)jsonObj.get("start_time");
+              int end_time = (Integer)jsonObj.get("end_time");
+
+              handler.processContent(new Trip(uuid, request_time, product_id, status, distance, start_time, end_time ));
+          }
+
+          System.out.print("dsadsa");
 
       }
       catch ( Exception e){
