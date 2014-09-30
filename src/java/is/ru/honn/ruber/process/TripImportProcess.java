@@ -23,7 +23,7 @@ import is.ru.honn.ruber.service.Content;
 public class TripImportProcess extends RuAbstractProcess implements FeedHandler
 {
     Logger log = Logger.getLogger(this.getClass().getName());
-    RuberServiceStub contentService;
+    RuberService contentService;
     FeedReader reader;
     MessageSource msg;
 
@@ -48,9 +48,9 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
 
     public void startProcess()
     {
-        /*log.info(msg.getMessage("processstart",
+        log.info(msg.getMessage("processstart",
                 new Object[] { getProcessContext().getProcessName() },
-                Locale.getDefault()));*/
+                Locale.getDefault()));
         try
         {
             reader.read(getProcessContext().getImportURL());
@@ -69,12 +69,12 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
 
     public void afterProcess()
     {
-
+/*
         List<Trip> col = contentService.getHistory("7354db54-cc9b-4961-81f2-0094b8e2d215");
         for (int i= 0; i<col.size();i++)
         {
             System.out.println(col.get(i));
-        }
+        }*/
     }
 
     public void processContent(Content content)
