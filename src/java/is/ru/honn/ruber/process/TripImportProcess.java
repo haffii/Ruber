@@ -27,39 +27,40 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
     FeedReader reader;
     MessageSource msg;
 
+
     public void beforeProcess()
     {
         ApplicationContext ctx = new FileSystemXmlApplicationContext("app.xml");
-        contentService = (RuberServiceStub)ctx.getBean("contentService");
+        contentService = (RuberServiceStub)ctx.getBean("RuberService");
         reader = (FeedReader)ctx.getBean("feedReader");
         reader.setFeedHandler(this);
         msg = (MessageSource)ctx.getBean("messageSource");
-        log.info(msg.getMessage("processbefore",
+        /*log.info(msg.getMessage("processbefore",
                 new Object[] { getProcessContext().getProcessName() } ,
-                Locale.getDefault()));
+                Locale.getDefault()));*/
     }
 
     public void processContent(Object content)
     {
-       // contentService.addContent((Content)content);
+        contentService.addTrip((Trip) content);
     }
 
 
     public void startProcess()
     {
-        log.info(msg.getMessage("processstart",
+        /*log.info(msg.getMessage("processstart",
                 new Object[] { getProcessContext().getProcessName() },
-                Locale.getDefault()));
+                Locale.getDefault()));*/
         try
         {
             reader.read(getProcessContext().getImportURL());
         }
         catch (FeedException e)
         {
-            log.info(msg.getMessage("processreaderror",
+            /*log.info(msg.getMessage("processreaderror",
                     new Object[] { getProcessContext().getImportFile() },
                     Locale.getDefault()));
-            log.info(e.getMessage());
+            log.info(e.getMessage());*/
         }
         /*log.info(msg.getMessage("processstartdone",
                 new Object[] {contentService.getContents().size()},
@@ -68,7 +69,8 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
 
     public void afterProcess()
     {
-        List<User> col = contentService.getUsers();
+
+        List<Trip> col = contentService.getHistory("7354db54-cc9b-4961-81f2-0094b8e2d215");
         for (int i= 0; i<col.size();i++)
         {
             System.out.println(col.get(i));

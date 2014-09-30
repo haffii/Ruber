@@ -5,4 +5,7 @@
 
     <bean id="RuberService" class="is.ru.honn.ruber.service.RuberServiceStub" />
 
+    <bean id="feedReader" class="is.ru.honn.ruber.feeds.RssReader">
+    </bean>
+
 </beans>

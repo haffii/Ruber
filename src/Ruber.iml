@@ -5,6 +5,8 @@
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/app-test-stub.xml</file>
+          <file>file://$MODULE_DIR$/process.xml</file>
+          <file>file://$MODULE_DIR$/process.xml</file>
         </fileset>
       </configuration>
     </facet>
