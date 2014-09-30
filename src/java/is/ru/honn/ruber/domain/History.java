@@ -1,5 +1,6 @@
 package is.ru.honn.ruber.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,22 +19,22 @@ public class History {
         this.offset = offset;
         this.limit = limit;
         this.count = count;
-        this.trips = null;
+        this.trips = new ArrayList<Trip>();
+
     }
 
     public List<Trip> getTrips(String uuid) {
-        List<Trip> tripsById = null;
-        for(int i = 0; i<trips.size();i++){
-            if(trips.get(i).uuid == uuid){
-                tripsById.add(trips.get(i));
+        List<Trip> tripsById = new ArrayList<Trip>();
+            for(int i = 0; i<trips.size();i++){
+                if(trips.get(i).uuid == uuid){
+                    tripsById.add(trips.get(i));
+                }
             }
-        }
         return tripsById;
     }
     public void addTrip(Trip trip) {
         if(count <limit) {
             trips.add(trip);
-            count++;
         }
         else{
             //throw exception if limit is exceeded

@@ -43,9 +43,10 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
 
     }
 
-    public void processContent(Object content)
+    @Override
+    public void processContent(Trip content)
     {
-        contentService.addTrip((Trip) content);
+        contentService.addTrip(content);
     }
 
 
@@ -75,13 +76,5 @@ public class TripImportProcess extends RuAbstractProcess implements FeedHandler
                 loc));
     }
 
-    public void processContent(Trip content)
-    {
-        contentService.addTrip(content);
-    }
 
-    @Override
-    public void processContent(Content content) {
-
-    }
 }

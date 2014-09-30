@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RuberServiceStub extends RuObject implements RuberService
 {
-    private History myHistory = new History();
+    private History myHistory = myHistory = new History(0,100,1);
     private List<User> myUsers = null;
     @Override
     public List getProducts(double latitude, double longitude) throws ServiceException
