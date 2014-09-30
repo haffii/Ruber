@@ -1,9 +1,12 @@
 
 package is.ru.honn.ruber.process;
 
+import is.ru.honn.ruber.domain.Trip;
+import is.ru.honn.ruber.domain.User;
 import is.ru.honn.ruber.feeds.FeedException;
 import is.ru.honn.ruber.feeds.FeedHandler;
 import is.ru.honn.ruber.feeds.FeedReader;
+import is.ru.honn.ruber.service.RuberServiceStub;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -17,17 +20,17 @@ import is.ruframework.process.RuAbstractProcess;
 import is.ru.honn.ruber.service.RuberService;
 import is.ru.honn.ruber.service.Content;
 
-public class ImportContentProcess extends RuAbstractProcess implements FeedHandler
+public class TripImportProcess extends RuAbstractProcess implements FeedHandler
 {
     Logger log = Logger.getLogger(this.getClass().getName());
-    RuberService contentService;
+    RuberServiceStub contentService;
     FeedReader reader;
     MessageSource msg;
 
     public void beforeProcess()
     {
         ApplicationContext ctx = new FileSystemXmlApplicationContext("app.xml");
-        contentService = (RuberService)ctx.getBean("contentService");
+        contentService = (RuberServiceStub)ctx.getBean("contentService");
         reader = (FeedReader)ctx.getBean("feedReader");
         reader.setFeedHandler(this);
         msg = (MessageSource)ctx.getBean("messageSource");
@@ -38,7 +41,7 @@ public class ImportContentProcess extends RuAbstractProcess implements FeedHandl
 
     public void processContent(Object content)
     {
-        contentService.addContent((Content)content);
+       // contentService.addContent((Content)content);
     }
 
 
@@ -58,22 +61,22 @@ public class ImportContentProcess extends RuAbstractProcess implements FeedHandl
                     Locale.getDefault()));
             log.info(e.getMessage());
         }
-        log.info(msg.getMessage("processstartdone",
+        /*log.info(msg.getMessage("processstartdone",
                 new Object[] {contentService.getContents().size()},
-                Locale.getDefault()));
+                Locale.getDefault()));*/
     }
 
     public void afterProcess()
     {
-        Collection<Content> col = contentService.getContents();
-        for (Content cnt: col)
+        List<User> col = contentService.getUsers();
+        for (int i= 0; i<col.size();i++)
         {
-            System.out.println(cnt);
+            System.out.println(col.get(i));
         }
     }
 
     public void processContent(Content content)
     {
-        contentService.addContent(content);
+       // contentService.addContent(content);
     }
 }
